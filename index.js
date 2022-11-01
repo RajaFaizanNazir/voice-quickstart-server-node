@@ -53,7 +53,18 @@ app.get('/incoming', function (request, response) {
 app.post('/incoming', function (request, response) {
   response.send(incoming());
 });
-
+app.get('/', function (req, res) {
+    const protocol = req.protocol;
+    const host = req.hostname;
+    const url = req.originalUrl;
+    res.send(protocol, host, url, '===ROOT===');
+});
+app.get('*', function (req, res) {
+    const protocol = req.protocol;
+    const host = req.hostname;
+    const url = req.originalUrl;
+    res.send(url);
+});
 // Create an http server and run it
 const server = http.createServer(app);
 const port = process.env.PORT || 3000;
